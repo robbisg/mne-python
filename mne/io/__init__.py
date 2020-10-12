@@ -52,6 +52,7 @@ from .persyst import read_raw_persyst
 from .fieldtrip import (read_raw_fieldtrip, read_epochs_fieldtrip,
                         read_evoked_fieldtrip)
 from .nihon import read_raw_nihon
+from .itab import read_raw_itab
 from ._read_raw import read_raw
 
 # for backward compatibility

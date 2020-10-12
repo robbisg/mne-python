@@ -102,11 +102,12 @@ class RawITAB(BaseRaw):
             The compensation + projection + cals matrix, if applicable.
         """
         
+        
         # Initial checks
         start = int(start)
         if stop is None or stop > self._raw_extras[fi]['n_samp']:
             stop = self._raw_extras[fi]['n_samp']
-
+  
         if start >= stop:
             raise ValueError('No data in this range')
 
@@ -117,14 +118,14 @@ class RawITAB(BaseRaw):
         with open(self._filenames[fi], 'rb') as fid:
 
             #position  file pointer
-            fid.seek(data_offset + start * self._raw_extras[fi]['nchan'], 0)
+            fid.seek(data_offset + 4 * start * self._raw_extras[fi]['nchan'], 0)
 
             # read data                
             n_read = self._raw_extras[fi]['nchan'] * n_samp
 
             this_data = np.fromfile(fid, '>i4', count=n_read)
-            this_data.shape = (n_samp, self._raw_extras[fi]['nchan'])
 
+            this_data.shape = (n_samp, self._raw_extras[fi]['nchan'])
             # calibrate data
             _mult_cal_one(data, this_data.transpose(), idx, cals, mult)
             
